@@ -27,9 +27,9 @@ class RoiIntegration():
             change_occured = False
             sim = np.dot(roi_a.T, roi_b)
             # sim[i][j] = area of intersection of ith ROI in roi_a and jth ROI in roi_b
-            # TODO: Try sparse matrix for sim
-            # Are roi_a and roi_b sparse themselves?
-
+            # roi_a and roi_b, and sim are sparse matrices.
+            # Sparsity is (area of cell) / (area of image), say, 40 / 256^2 ~ 0.0006.
+            # TODO: Try scipy.sparse to manage roi_a and roi_b.
             for region_in_roi_a in range(roi_a.shape[1]):
                 region_in_roi_b = np.argmax(sim[region_in_roi_a]) # most overlapping region in roi_b
                 area_overlap = sim[region_in_roi_a][region_in_roi_b]
