@@ -1,0 +1,18 @@
+{
+    "blob_detector": {
+        "filtersize1": 100,
+        "filtersize2": 4,
+        "sigma": 1.25,
+        "fsize": 7,
+        "min_area": 20,
+        "max_area": 50
+    },
+    "roi_integration":{
+        "overlap_threshold": 0.4,
+        "min_area": 20,
+        "max_area": 100
+    },
+    "lccd": {
+        "frame_divider": 100
+    }
+}
