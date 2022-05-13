@@ -1,43 +1,43 @@
 Timer unit: 1e-06 s
 
-Total time: 4.63434 s
-File: /home/nmamada/projects/lccd-python/tests/../lccd-python/blob_detector.py
-Function: apply at line 58
+Total time: 5.14693 s
+File: /home/nmamada/lccd-python/profiles/../lccd_python/blob_detector.py
+Function: apply at line 59
 
 Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
-    58                                               def apply(self, tv):
-    59         1          3.0      3.0      0.0          X, Y, T = tv.shape
-    60         1          4.0      4.0      0.0          tv = tv.reshape(-1, T)
-    61         2      85165.0  42582.5      1.8          smooth_tv = np.maximum(
-    62         2     396197.0 198098.5      8.5              self.conv2(tv, self.mavefil2, mode='same')\
-    63         1    4050179.0 4050179.0     87.4                  - self.conv2(tv, self.mavefil1, mode='same'),
-    64         1          2.0      2.0      0.0              0
-    65                                                   )
-    66         1      23093.0  23093.0      0.5          max_lumi_map = np.max(smooth_tv, axis=1).reshape(X, Y)
-    67         2       1321.0    660.5      0.0          lumi_map = np.maximum(
-    68         1      20974.0  20974.0      0.5              self.conv2(max_lumi_map, self.sp_fil, mode='valid'),
-    69                                                       # Here, the article says the mode is 'valid' (Algorithm2, line 10).
-    70                                                       # But in order that ROI have the dimesion (0, 1)^{XY x N_r} (line 21),
-    71                                                       # mode should be 'same'.
-    72         1          0.0      0.0      0.0              0)
-    73         1      21321.0  21321.0      0.5          cont_enhanced_map = skimage.exposure.equalize_adapthist(lumi_map)
-    74         1       2403.0   2403.0      0.1          threshold = skimage.filters.threshold_otsu(cont_enhanced_map)
-    75         1        140.0    140.0      0.0          bwm = im2bw(cont_enhanced_map, threshold)
-    76         1       1064.0   1064.0      0.0          label_mat = skimage.measure.label(bwm, connectivity=2)
-    77         2      16213.0   8106.5      0.3          label_mat2 = filter_closed_regions_by_area(
-    78         1          1.0      1.0      0.0              label_mat, min_area=self.min_area, max_area=self.max_area)
-    79         1      16260.0  16260.0      0.4          ROI = oval_filter.oval_filter(label_mat2)
-    80         1          2.0      2.0      0.0          if not self.debug:
-    81         1          0.0      0.0      0.0              return ROI
-    82                                                   return {
-    83                                                       'smooth_tv': smooth_tv,
-    84                                                       'max_lumi_map': max_lumi_map,
-    85                                                       'lumi_map': lumi_map,
-    86                                                       'cont_enhanced_map': cont_enhanced_map,
-    87                                                       'threshold': threshold,
-    88                                                       'bwm': bwm,
-    89                                                       'label_mat': label_mat,
-    90                                                       'label_mat2': label_mat2,
-    91                                                       'ROI': ROI
-    92                                                       }
+    59                                               def apply(self, tv):
+    60         1          1.0      1.0      0.0          X, Y, T = tv.shape
+    61         1          3.0      3.0      0.0          tv = tv.reshape(-1, T)
+    62         2     184191.0  92095.5      3.6          smooth_tv = np.maximum(
+    63         2     618251.0 309125.5     12.0              self.conv2(tv, self.mavefil2, mode='same')\
+    64         1    4250795.0 4250795.0     82.6                  - self.conv2(tv, self.mavefil1, mode='same'),
+    65         1          3.0      3.0      0.0              0
+    66                                                   )
+    67         1      21809.0  21809.0      0.4          max_lumi_map = np.max(smooth_tv, axis=1).reshape(X, Y)
+    68         2       1254.0    627.0      0.0          lumi_map = np.maximum(
+    69         1      19726.0  19726.0      0.4              self.conv2(max_lumi_map, self.sp_fil, mode='valid'),
+    70                                                       # Here, the article says the mode is 'valid' (Algorithm2, line 10).
+    71                                                       # But in order that ROI have the dimesion (0, 1)^{XY x N_r} (line 21),
+    72                                                       # mode should be 'same'.
+    73         1          1.0      1.0      0.0              0)
+    74         1      20210.0  20210.0      0.4          cont_enhanced_map = skimage.exposure.equalize_adapthist(lumi_map)
+    75         1       2240.0   2240.0      0.0          threshold = skimage.filters.threshold_otsu(cont_enhanced_map)
+    76         1        143.0    143.0      0.0          bwm = im2bw(cont_enhanced_map, threshold)
+    77         1       1005.0   1005.0      0.0          label_mat = skimage.measure.label(bwm, connectivity=2)
+    78         2      15208.0   7604.0      0.3          label_mat2 = filter_closed_regions_by_area(
+    79         1          1.0      1.0      0.0              label_mat, min_area=self.min_area, max_area=self.max_area)
+    80         1      12088.0  12088.0      0.2          ROI = oval_filter.oval_filter(label_mat2, sparse=self.sparse)
+    81         1          1.0      1.0      0.0          if not self.debug:
+    82         1          1.0      1.0      0.0              return ROI
+    83                                                   return {
+    84                                                       'smooth_tv': smooth_tv,
+    85                                                       'max_lumi_map': max_lumi_map,
+    86                                                       'lumi_map': lumi_map,
+    87                                                       'cont_enhanced_map': cont_enhanced_map,
+    88                                                       'threshold': threshold,
+    89                                                       'bwm': bwm,
+    90                                                       'label_mat': label_mat,
+    91                                                       'label_mat2': label_mat2,
+    92                                                       'ROI': ROI
+    93                                                       }
