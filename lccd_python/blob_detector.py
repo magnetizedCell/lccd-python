@@ -45,7 +45,7 @@ def filter_closed_regions_by_area(mat, min_area, max_area):
 
 class BlobDetector():
     def __init__(self, filtersize1, filtersize2, sigma, fsize, min_area, max_area,
-                matlab_conv=False, debug=False, **kwargs):
+                matlab_conv=False, debug=False, sparse=True, **kwargs):
         self.min_area = min_area
         self.max_area = max_area
         self.mavefil1 = np.ones((1, filtersize1)) / filtersize1
@@ -54,6 +54,7 @@ class BlobDetector():
                         - np.ones((fsize, fsize)) / (fsize**2) # average filter
         self.conv2 = matlab_conv2 if matlab_conv else scipy.signal.convolve2d
         self.debug = debug
+        self.sparse = sparse
 
     def apply(self, tv):
         X, Y, T = tv.shape
@@ -76,7 +77,7 @@ class BlobDetector():
         label_mat = skimage.measure.label(bwm, connectivity=2)
         label_mat2 = filter_closed_regions_by_area(
             label_mat, min_area=self.min_area, max_area=self.max_area)
-        ROI = oval_filter.oval_filter(label_mat2)
+        ROI = oval_filter.oval_filter(label_mat2, sparse=self.sparse)
         if not self.debug:
             return ROI
         return {
