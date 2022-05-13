@@ -20,11 +20,11 @@ pip3 install -r lccd-python/requirements.txt
    -  execute lccd in command line  
       ```bash
       cd lccd-python
-      python3 lccd-python/lccd.py --conf config/config.json --src tests/src.npy --dst out.dump
+      python3 lccd_python/lccd.py --conf config/config.json --src profiles/src.npy --dst out.dump
       ```
       Here source file is a numpy array file that have dimesion (X, Y, T).
    - use lccd as module  
-      read tests/test_lccd.ipynb
+      read profiles/test_lccd.ipynb
 
 ### TODO
 - Compare result with official implementation  
