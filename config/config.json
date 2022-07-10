@@ -5,12 +5,14 @@
         "sigma": 1.25,
         "fsize": 7,
         "min_area": 20,
-        "max_area": 50
+        "max_area": 50,
+        "sparse": true
     },
     "roi_integration":{
         "overlap_threshold": 0.4,
         "min_area": 20,
-        "max_area": 100
+        "max_area": 100,
+        "sparse": true
     },
     "lccd": {
         "frame_divider": 100
