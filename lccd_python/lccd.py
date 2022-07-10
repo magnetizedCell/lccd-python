@@ -23,6 +23,8 @@ class LCCD():
             tm = v[:, :, m*self.frame_divider: (m+1)*self.frame_divider]
             roi_tm = self.blob_detector.apply(tm)
             roi = self.roi_integration.apply(roi_tm, roi)
+        if self.roi_integration.sparse:
+            roi = np.array(roi.todense())
         return roi
 
 

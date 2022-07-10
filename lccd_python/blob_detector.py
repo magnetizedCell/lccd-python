@@ -89,5 +89,6 @@ class BlobDetector():
             'bwm': bwm,
             'label_mat': label_mat,
             'label_mat2': label_mat2,
-            'ROI': ROI
+            'ROI': ROI,
+            'lumi_map_shape': lumi_map.shape
             }

@@ -32,11 +32,16 @@ def oval_filter(label_mat, sparse=False):
             else:
                 roi = roi.reshape(-1, 1)
                 rois.append(roi)
+
     if sparse:
+        if len(data) == 0:
+            raise ValueError("No roi region found. Revise config and input.")
         lil_arr = scipy.sparse.lil_matrix((len(data), label_mat.shape[0]*label_mat.shape[1]), dtype=data[0][0].dtype)
         lil_arr.data = np.array(data, dtype='object')
         lil_arr.rows = np.array(rows, dtype='object')
         csr_arr = scipy.sparse.csr_matrix(lil_arr)
         return csr_arr.T # By transpose, csr_matrix is converted to csc_matrix.
+    if len(rois) == 0:
+        raise ValueError("No roi region found. Revise config and input.")
     rois = np.concatenate(rois, 1)
     return rois

@@ -56,7 +56,15 @@ class RoiIntegration():
         if self.sparse:
             return utils.count_nonzero_values_in_col_csc(roi, i)
         return np.sum(roi[:, i]) # for dense array, np.count_nonzero is slower than np.sum(col)
-    
+
+    def gather_overlapping_regions(self, sim):
+        """
+        Gather regions those have overlapping area with other regions.
+        """
+        if self.sparse:
+            return [region_in_a for region_in_a in range(sim.shape[0]) if sim.getrow(region_in_a).nnz > 0]
+        return [region_in_a for region_in_a in range(sim.shape[0]) if np.sum(sim[region_in_a]) > 0]
+
     def remove_overlap(self, roi_a, roi_b, i, j):
         """
         This is inplace operation.
@@ -104,7 +112,13 @@ class RoiIntegration():
         while 1:
             change_occured = False
             sim = roi_a.T.dot(roi_b)
-            for region_in_roi_a in range(roi_a.shape[1]):
+            # sim[i][j] is area of overlap by ith region in roi_a and jth region in roi_b
+            # roi_a.shape = (1500x1500, 5000), roi_b.shape = (1500x1500, 3000)
+            # density 30 / (1500x1500)
+            # roi_a.T.dot(roi_b) took 6ms (AMD Ryzen 5900x)
+
+            overlapping_regions_in_a = self.gather_overlapping_regions(sim)
+            for region_in_roi_a in overlapping_regions_in_a:
                 region_in_roi_b = np.argmax(sim[region_in_roi_a]) # most overlapping region in roi_b
                 area_overlap = sim[region_in_roi_a, region_in_roi_b]
                 if area_overlap == 0:
