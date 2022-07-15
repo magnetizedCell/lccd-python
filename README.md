@@ -27,13 +27,13 @@ pip3 install -r lccd-python/requirements.txt
       read profiles/test_lccd.ipynb
 
 ### TODO
-- Compare result with official implementation  
+- []Compare result with official implementation  
   Especially roi_integration
-- Make commnad line src file loading more flexible
-- Make variable and function names pythonic
-- Add GPU mode (see tests/profile_blob_detector.ipynb)
-- Add lazy frame loading for memory-efficient computation
-- Try sparse matrix in roi_integration
+- []Make commnad line src file loading more flexible
+- []Make variable and function names pythonic
+- []Add GPU mode (see tests/profile_blob_detector.ipynb)
+- []Add lazy frame loading for memory-efficient computation
+- [x]Try sparse matrix in roi_integration: specify sparse:true in config.config.json
 
 
 ### LIMITATION
