@@ -1,6 +1,5 @@
 Python porting of [Ito et al., "Low computational-cost cell detection method for calcium imaging data", Neuroscience Research, 2022](https://www.sciencedirect.com/science/article/pii/S016801022200075X)
 
-# This repository is not ready.
 
 ### Quickstart
 
