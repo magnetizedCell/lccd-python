@@ -27,21 +27,10 @@ pip3 install -r lccd-python/requirements.txt
       read profiles/test_lccd.ipynb
 
 ### TODO
-- []Compare result with official implementation  
-  Especially roi_integration
+- [x]Compare result with official implementation  
+  Especially roi_integration -- seems ok
 - []Make commnad line src file loading more flexible
 - []Make variable and function names pythonic
 - []Add GPU mode (see tests/profile_blob_detector.ipynb)
 - []Add lazy frame loading for memory-efficient computation
 - [x]Try sparse matrix in roi_integration: specify sparse:true in config.config.json
-
-
-### LIMITATION
-1. This code is not tested with authors' code.
-2. Matlab functions are tested with Octave, OSS re-implementation of Matlab. Python's
-   - convolution operation (in blob_detector)
-   - adapthisteq (in blob_detector)
-   - Otsu's method (in blob_detector
-   - regionprops (in oval_filter)  
-
-    have some difference to Octave's. Degree of degradation is not checked.
